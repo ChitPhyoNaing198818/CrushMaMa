@@ -1,0 +1,362 @@
+:root {
+  --envelope-back: #ffb3c6;
+  --envelope-left: #ff8fab;
+  --envelope-right: #ff8fab;
+  --envelope-bottom: #fb6f92;
+  --envelope-top: #ff758f;
+  --bg: #fff0f3;
+  --text: #590d22;
+  --white: #fffdfc;
+  --wax: #c1121f;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at center, #ffffff 0%, var(--bg) 100%);
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+#particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  opacity: 0;
+  animation: float 5s infinite;
+  text-shadow: 0 0 10px rgba(255, 179, 198, 0.5);
+}
+
+@keyframes float {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { transform: translateY(-120px) scale(1.2) rotate(20deg); opacity: 0; }
+}
+
+.scene {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 350px;
+  height: 230px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  box-shadow: 0 15px 40px rgba(251, 111, 146, 0.2);
+  transition: transform 0.4s ease;
+}
+
+.envelope-wrapper:hover .envelope {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 45px rgba(251, 111, 146, 0.3);
+}
+
+.envelope-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--envelope-back);
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.letter {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  /* Layered gradients for a soft, premium paper feel */
+  background: 
+    radial-gradient(circle at top right, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at bottom left, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+    linear-gradient(135deg, #fffdfc 0%, #ffe3ec 100%);
+  border: 1px solid rgba(255, 179, 198, 0.6);
+  border-radius: 8px 8px 2px 2px;
+  z-index: 3;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), height 0.6s, z-index 0s 0.3s;
+  padding: 35px 25px 25px 25px; /* Extra top padding */
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: inset 0 0 45px rgba(255, 182, 193, 0.3), 0 5px 15px rgba(0,0,0,0.06); 
+  display: block;
+  overflow: hidden;
+}
+
+/* Let's fix z-indexes: back=1, flap-open=2, letter=3, front=4, flap-closed=5, seal=6 */
+.envelope-front {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 175px solid var(--envelope-left);
+  border-right: 175px solid var(--envelope-right);
+  border-bottom: 115px solid var(--envelope-bottom);
+  border-top: 115px solid transparent;
+  z-index: 4;
+  pointer-events: none;
+  border-radius: 0 0 5px 5px;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 130px solid var(--envelope-top);
+  border-left: 175px solid transparent;
+  border-right: 175px solid transparent;
+  border-bottom: 100px solid transparent;
+  z-index: 5;
+  transform-origin: top;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0s;
+}
+
+.wax-seal {
+  position: absolute;
+  top: 130px;
+  left: 175px;
+  transform: translate(-50%, -50%);
+  width: 55px;
+  height: 55px;
+  background: radial-gradient(circle, #e63946 0%, var(--wax) 100%);
+  border-radius: 50%;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.2);
+  transition: all 0.4s ease;
+}
+
+.wax-seal::after {
+  content: '♥';
+  color: #780000;
+  font-size: 26px;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.2);
+}
+
+/* Elegant romantic double inner border */
+.letter::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid #ffb3c6;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.letter::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 1px dashed #ffb3c6;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Typestyles inside letter */
+.letter-title {
+  position: relative;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: #c1121f; /* Deeper romantic red */
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(193, 18, 31, 0.15); 
+  display: inline-block;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255, 179, 198, 0.7);
+}
+
+.letter-title::after {
+  content: '❤';
+  position: absolute;
+  bottom: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  color: #ffb3c6;
+  background: #fffdfc;
+  padding: 0 5px;
+}
+
+.letter-text {
+  font-family: 'Noto Sans Myanmar', 'Caveat', sans-serif;
+  font-size: 1.1rem;
+  color: #4a2932; /* Rich mocha for a warm ink feel */
+  line-height: 1.6;
+  margin: 15px 0 0 0;
+  text-align: left;
+  white-space: pre-wrap; 
+  word-break: break-word; /* Ensure long words without spaces wrap */
+  overflow-wrap: break-word; /* Ensure text fits container width */
+  max-height: 220px; /* Restrict height moderately to avoid overlap */
+  min-height: 120px; 
+  position: relative;
+  z-index: 10; /* Keep text above pseudo borders */
+  overflow-y: auto; /* Enable vertical scroll if text spills */
+  padding: 0 10px; /* Protective padding so text doesn't touch the borders */
+}
+
+/* Custom romantic scrollbar for letter text */
+.letter-text::-webkit-scrollbar {
+  width: 4px;
+}
+
+.letter-text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.letter-text::-webkit-scrollbar-thumb {
+  background: rgba(255, 179, 198, 0.8);
+  border-radius: 4px;
+}
+
+.letter-seal {
+  margin-top: 20px;
+  font-size: 1.4rem;
+  color: var(--wax);
+  font-family: 'Dancing Script', cursive;
+  text-align: right;
+  opacity: 0; 
+  transition: opacity 1s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.letter-seal.visible {
+  opacity: 1;
+}
+
+/* Animations for open state */
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 2; /* behind letter */
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.3s;
+}
+
+.envelope-wrapper.open .wax-seal {
+  opacity: 0;
+  transform: translate(-50%, 0) scale(0);
+}
+
+/* Slightly slide letter up when envelope opens */
+.envelope-wrapper.open .letter {
+  transform: translateY(-90px);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s, z-index 0s;
+}
+
+/* Read state - letter fully pops out */
+.envelope-wrapper.read .letter {
+  height: 460px;
+  transform: translateY(-30px) scale(1.05);
+  z-index: 100;
+  box-shadow: 0 20px 60px rgba(251, 111, 146, 0.3), 0 5px 20px rgba(0,0,0,0.15); /* Soft romantic glowing shadow when open */
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), height 0.6s, z-index 0s;
+  cursor: auto;
+}
+
+/* Hint text */
+.hint {
+  position: absolute;
+  bottom: -45px;
+  width: 100%;
+  text-align: center;
+  color: var(--envelope-bottom);
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: pulse 2s infinite;
+  transition: opacity 0.3s;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+  100% { opacity: 0.6; transform: scale(1); }
+}
+
+/* Rose element decoration */
+.scene::after {
+  content: '🌹';
+  position: absolute;
+  bottom: -30px;
+  right: -80px;
+  font-size: 8rem;
+  filter: drop-shadow(4px 15px 15px rgba(251, 111, 146, 0.3));
+  z-index: 11;
+  pointer-events: none;
+  transform: rotate(15deg);
+  transform-origin: bottom center;
+  animation: sway 6s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0% { transform: rotate(15deg); }
+  50% { transform: rotate(22deg); }
+  100% { transform: rotate(15deg); }
+}
+
+/* Mobile Responsiveness Rules */
+@media screen and (max-width: 600px), screen and (max-height: 650px) {
+  .scene {
+    transform: scale(0.85); /* Scales down the entire envelope smoothly */
+  }
+}
+
+@media screen and (max-width: 500px), screen and (max-height: 550px) {
+  .scene {
+    transform: scale(0.75); 
+  }
+}
+
+@media screen and (max-width: 400px), screen and (max-height: 480px) {
+  .scene {
+    transform: scale(0.65); /* Ensures it fits gracefully on ultra-slim phone displays */
+  }
+}
+
+@media screen and (max-width: 320px), screen and (max-height: 400px) {
+  .scene {
+    transform: scale(0.55);
+  }
+}

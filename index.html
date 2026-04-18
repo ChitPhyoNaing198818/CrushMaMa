@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Love</title>
+  <meta name="description" content="A lovely digital card for you.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Caveat:wght@500;600&family=Inter:wght@300;400;500&family=Noto+Sans+Myanmar:wght@400;500;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- Hidden audio element for background music -->
+  <audio id="bg-music" loop>
+    <!-- Put your music file in the same folder and name it 'music.mp3' -->
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="particles"></div>
+  <div class="scene">
+    <div class="envelope-wrapper" id="envelope-wrapper">
+      <div class="envelope">
+        <div class="envelope-back"></div>
+
+        <div class="letter" id="letter">
+          <h1 class="letter-title">Ma Ma</h1>
+          <div class="letter-text" id="typewriter-text"></div>
+          <div class="letter-seal" id="letter-seal">Forever Ma Ma ❤</div>
+        </div>
+
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+        <div class="wax-seal"></div>
+      </div>
+      <div class="hint" id="hint">ကျွန်တော့်ရင်ထဲကစကားလေးတွေကိုနားထောင်ပေးပါ</div>
+    </div>
+
+    <div class="sparkles" id="sparkles"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
